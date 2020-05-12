@@ -1,0 +1,39 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - d#a#t#a#d#i#r/logs/nginx/access.log*
+    exclude_files: [".gz$"]
+    tags: ["nginx-access"]
+  - type: log
+    enabled: true
+    paths:
+      - d#a#t#a#d#i#r/logs/nginx/error.log*
+    exclude_files: [".gz$"]
+    tags: ["nginx-error"]
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/haproxy/access.log*
+    exclude_files: [".gz$"]
+    tags: ["haproxy"]
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/v2ray/access.log*
+    exclude_files: [".gz$"]
+    tags: ["v2ray"]
+
+monitoring.enabled: false
+setup.template.enabled: false
+logging.level: "warning"
+
+output.redis:
+  hosts: ["h#o#s#t:59945"]
+  key: "filebeat-log-list"
+  password: "p#s#s#w#o#r#d"
+  ssl.enabled: true
+  ssl.verification_mode: none
+  ssl.certificate_authorities: "/etc/filebeat/stunnel.crt"
+  db: 0
+  timeout: 5
